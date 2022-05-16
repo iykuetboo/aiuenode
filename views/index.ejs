@@ -1,0 +1,40 @@
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>aiuenode</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body>
+  
+  <div class="container-fluid">
+    <form id="login-form">
+      <div class="form-group">
+        <label>Room</label>
+        <input type="text" name="room" class="form-control" placeholder="Enter Room ID">
+      </div>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Enter Your Name">
+      </div>
+      <input type="submit" class="btn btn-primary" value="Enter">
+    </form>
+  </div>
+
+  <div class="container-fluid">
+    <p>system-msgs</p>
+    <div id="msg-box"></div>
+  </div>
+
+  <p id="server-time"></p>
+
+  
+  <script src="./js/socket_setup.js"></script>
+  <script src="./js/socket_msg.js"></script>
+  <script src="./js/socket_login.js"></script>
+</body>
+
+</html>
