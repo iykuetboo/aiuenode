@@ -30,22 +30,22 @@ io.on('connection', (socket) => {
     if(data.room in rooms){
       r = rooms[data.room]
     }else{
-      r = new roomutils.room(data.room);
+      r = new roomutils.room(data.room,io);
       rooms[data.room] = r
     }
 
     const p = new roomutils.player(socket.id, data.name);
-    
-    const err = p.join(r);
+    //todo: playerをsocked_idに対して一意なモノに
+
+    const err = roomutils.join(r,p);
     if(err){
-      console.log(err);
-      io.to(p.id).emit("system-msg", "failed to enter: "+err);
+      console.log(err.msg);
+      io.to(p.id).emit("system-msg", `${err.code}: ${err.msg}`);
       return;
     }
-
-    players[socket.id] = p
-    r.emit(io,"system-msg", `${data.name} entered to ${data.room}`)
-
+    console.log(r.players)
+    // roomutils.emit(r,"system-msg",`${p.name} entered Room:${r.id}`)
+    r.emit("system-msg",`${p.name} entered Room:${r.id}`);
   });
 
 });

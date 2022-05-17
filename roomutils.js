@@ -1,39 +1,30 @@
 class room {
-    players = [];
-
-    constructor(id) {
+    constructor(id,io) {
         this._id = id;
-        // players = [];
+        this._players = [];
         this._capacity = 6;
+        this._io = io;
     }
 
-    has_capacity() {
-        return this._capacity - this.players.length > 0;
+    remain_capacity() {
+        return this.capacity - this.players.length > 0;
     }
 
-    emit(io, key, data, exclude = null) {
-        console.log(`r.emit() called: r=${this._id},players=${this.players},key=${key},data=${data}`);
-        for (let p in this.players) {
-            if (Array.isArray(exclude)) {
-                if (p.socket_id in exclude) { continue; }
-            } else {
-                if (p.socket_id == exclude) { continue; }
-            }
+    emit(key,data,except_ids=[]){
 
-            console.log(`io.to(${p.socket_id}.emit(${key},${data}))`);
-            io.to(p.socket_id).emit(key, data);
+        if(!Array.isArray(except_ids)){
+            except_ids = [except_ids]
         }
+    
+        this.players
+            .filter(p=>!(p.socket_id in except_ids))
+            .map(p => {this.io.to(p.socket_id).emit(key,data)});
     }
 
-    /**
-     * @param {player} p
-     */
-    set new_player(p){
-        this.players.push(p)
-    }
-
+    get players(){return this._players;}
     get id(){return this._id;}
-    // get players(){return this._players;}
+    get capacity(){return this._capacity}
+    get io(){return this._io;}
 }
 
 class player {
@@ -43,31 +34,53 @@ class player {
         this._name = name;
     }
 
-    join(room) {
-        console.log(`p.join(r) called: p=${this._socket_id},r=${room.id}`)
-        if (room.has_capacity()) {
-            this._joined_room = room;
-
-            for (let p in room.players) {
-                console.log("  check:"+p.socket_id+" "+this._socket_id)
-                if (p.socket_id == this._socket_id) {
-                    console.log(`warning! ${this._name} repeatedly joined to ${room.id}`);
-                    break;
-                }
-            }
-            // if(this in room.players){console.log(`warning! ${this._name} repeatedly joined to ${room.id}`)}
-
-            room.new_player = this;
-            return null;
-        } else {
-            const err = "capacity over...";
-            return err;
-        }
-    }
-
     get joined_room(){return this._joined_room;}
+    set joined_room(v){this._joined_room = v}
     get socket_id(){return this._socket_id;}
     get name(){return this._name;}
 }
 
-module.exports = { room: room, player: player }
+function join(r,p){
+    console.log(p)
+    
+    if(p.joined_room!=null){
+        err = {
+            code:"application eroor",
+            msg:`Player:${p.name} is already joined to Room:${r.id}. players can only be in one room at a time.`
+        }
+        return err;
+    }
+
+    if(r.remain_capacity()==false){
+        err = {
+            code:"over capacity",
+            msg:`Room:${r.id} is fully occupied. Please join other room.`
+        }
+        return err;
+    }
+    
+    p.joined_room = r.id;
+    r.players.push(p);
+    p.name = "aaaaaaaaaaaaaaaa"
+    console.log(r.players)
+    console.log(p.name)
+
+    return null
+}
+
+function emit(r,key,data,except_ids=[]){
+    // console.log(r)
+    console.log(r.players)
+    // console.log(`emit in room ${r.id}: key=${key}, data=${data}, players=${r.players}`)
+
+    if(!Array.isArray(except_ids)){
+        except_ids = [except_ids]
+    }
+
+    r.players.filter(p=>!(p.socket_id in except_ids))
+        .map(p => {
+            r.io.to(p.socket_id).emit(key,data)
+        });
+}
+
+module.exports = { room: room, player: player ,join: join, emit:emit}
