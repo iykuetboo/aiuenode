@@ -1,0 +1,41 @@
+
+div {
+    background: aquamarine;
+}
+
+body{
+    margin: 0;
+}
+
+.wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.window-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.board-wrapper {
+    float: left;
+    background: aliceblue;
+    height: 100%;
+    width: 70%;
+}
+
+.players-wrapper {
+    float: left;
+    background: antiquewhite;
+    height: 21em;
+    width: 30%;
+    
+}
+
+.chat-wrapper {
+    background: cadetblue;
+    float: left;
+    height: calc(100% - 21em);
+    min-height: 10em;
+    width: 30%;
+}

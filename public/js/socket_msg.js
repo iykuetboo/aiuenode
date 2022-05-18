@@ -1,4 +1,3 @@
-
 socket.on('system-msg',(msg)=>{
     console.log("system: "+msg)
     $("#msg-box").append(`<div class='system-msg'>system: ${msg}</div>`)
