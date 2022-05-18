@@ -1,0 +1,13 @@
+#msg-box div:nth-child(odd) {
+    background: #999999;
+}
+
+#msg-box div:nth-child(even) {
+    background: #dddddd;
+}
+
+.table_frame {
+    /* width: 800px; */
+    height: 300px;
+    overflow: auto;
+}
