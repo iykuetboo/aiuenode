@@ -14,45 +14,55 @@ const server = express()
 //------------------------------------------------------------------------------
 
 const io = socketIO(server);
-const roomutils = require('./roomutils')
-const rooms = {}
-const players = {}
+const roomutils = require('./roomutils');
+const Room = roomutils.Room;
+const Player = roomutils.Player;
+Room.io = io;
 
 io.on('connection', (socket) => {
-  console.log('Client connected');
+  console.log(`Client ${socket.id} connected`);
 
-  socket.on('disconnect', () => console.log('Client disconnected'));
+  socket.on('disconnect', () => console.log(`Client ${socket.id} disconnected`));
 
   socket.on('login', (data) => {
     console.log(`${data.name}(id:${socket.id}) entered to ${data.room}`);
 
-    let r;
-    if(data.room in rooms){
-      r = rooms[data.room]
-    }else{
-      r = new roomutils.room(data.room,io);
-      rooms[data.room] = r
-    }
+    const p = Player.get(socket.id)
 
-    const p = new roomutils.player(socket.id, data.name);
-    //todo: playerをsocked_idに対して一意なモノに
-
-    const err = roomutils.join(r,p);
+    let r = Room.get(data.room)
+    const err = p.join(r);
     if(err){
       console.log(err.msg);
-      io.to(p.id).emit("system-msg", `${err.code}: ${err.msg}`);
+      io.to(socket.id).emit("system-msg", `${err.code}: ${err.msg}`);
       return;
     }
-    console.log(r.players)
-    // roomutils.emit(r,"system-msg",`${p.name} entered Room:${r.id}`)
+    
+    p.name = data.name
+    
     r.emit("system-msg",`${p.name} entered Room:${r.id}`);
   });
 
+  socket.on('logout', (data) => {
+    const p = Player.get(socket.id)
+    const r = Room.get(p.joined_room)
+
+    const err = p.exit();
+    if(err){
+      console.log(err.msg);
+      io.to(socket.id).emit("system-msg", `${err.code}: ${err.msg}`);
+      return;
+    }
+    
+    r.emit("system-msg",`${p.name} left Room:${r.id}`);
+    io.to(socket.id).emit("system-msg",`${p.name} left Room:${r.id}`);
+  });
+
+  socket.on('chat', (data) => {
+    const p = Player.get(socket.id)
+    const r = Room.get(p.joined_room)
+    r.emit('chat-msg', {sender:p.name, text:data.text})
+  })
+
 });
 
-
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
-// setInterval(() => io.emit('system-msg', new Date().toTimeString()), 5000);
-
-// function emit(room,key,data){}
-

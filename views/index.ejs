@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  
+
   <div class="container-fluid">
     <form id="login-form">
       <div class="form-group">
@@ -20,18 +20,33 @@
         <label>Name</label>
         <input type="text" name="name" class="form-control" placeholder="Enter Your Name">
       </div>
-      <input type="submit" class="btn btn-primary" value="Enter">
+      <input type="submit" class="btn btn-primary" value="LogIn">
+    </form>
+    <form id="logout-form">
+      <input type="submit" class="btn btn-primary" value="Leave room">
     </form>
   </div>
 
+  
   <div class="container-fluid">
-    <p>system-msgs</p>
+    <form id="chat-form">
+      <div class="form-group">
+        <label>Chat</label>
+        <input type="text" name="text" class="form-control" placeholder="">
+      </div>
+      <input type="submit" class="btn btn-primary" value="Send">
+    </form>
+  </div>
+
+
+  <div class="container-fluid">
+    <p>massages</p>
     <div id="msg-box"></div>
   </div>
 
   <p id="server-time"></p>
 
-  
+
   <script src="./js/socket_setup.js"></script>
   <script src="./js/socket_msg.js"></script>
   <script src="./js/socket_login.js"></script>
