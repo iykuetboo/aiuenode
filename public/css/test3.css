@@ -1,7 +1,5 @@
 div {
     background: aquamarine;
-    border: 2px solid gray;
-    box-sizing: border-box;
 }
 
 body {
@@ -19,43 +17,196 @@ body {
     width: 100%;
 }
 
-.board-wrapper {
-    float: left;
-    background: aliceblue;
-    height: 75%;
+.body-wrapper {
+    height: calc(100vh - 5em);
     width: 100%;
 }
 
-.players-wrapper {
-    float: left;
-    background: antiquewhite;
-    height: 100%;
+.header-wrapper{
     width: 100%;
-
+    height: 5em;
+    background: #777;
 }
 
-.chat-wrapper {
-    background: cadetblue;
-    float: left;
-    height: 25%;
-    min-height: 10em;
-    width: 100%;
+/* for mobile */
+@media only screen and (max-width: 767px) {
+    .groupA-wrapper {
+        float: left;
+        width: 100%;
+        height: 30%;
+    }
+
+    .groupB-wrapper {
+        float: left;
+        width: 100%;
+        height: 70%;
+    }
+
+
+    .board-wrapper {
+        float: left;
+        background: paleturquoise;
+        height: 75%;
+        width: 100%;
+        align-content: space-around;
+    }
+
+
+    .chat-wrapper {
+        background: cadetblue;
+        float: left;
+        height: 25%;
+        min-height: 10em;
+        width: 100%;
+    }
+
+    .players-wrapper {
+        float: left;
+        background: antiquewhite;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .player-item-wrapper {
+        height: 25%;
+        width: 100%;
+        background: lightsteelblue;
+    }
+
+    #player1{
+        background: #fad;
+    }
+    #player2{
+        background: #adf;
+    }
+    #player3{
+        background: #aff;
+    }
+    #player4{
+        background: #ffa;
+    }
+    
+    .aiue-board{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+    .aiue-line{
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+    .aiue-line button{
+        display: block;
+        width: 8vw;
+        height: 8vw;
+        margin: 1vw 0.5vw;
+        border-radius: 10%;
+        border-width: 0.2vw;
+        color: whitesmoke;
+        background: darkslategrey;
+    }
+    .aiue-line button:hover{
+        color: darkslategrey;
+        background: whitesmoke;
+    }
 }
 
-.right-wrapper {
-    float: left;
-    width: 40%;
+/* for pc and tablet */
+@media only screen and (min-width: 768px) {
+    
+    .body-wrapper{
+        
+    display: flex;
+    flex-direction: row-reverse;
+    }
+
+    .board-wrapper {
+        float: left;
+        background: aliceblue;
+        height: 75%;
+        width: 100%;
+        display: flex;
+        align-content: space-around;
+        justify-content: center;
+    }
+
+    .players-wrapper {
+        float: left;
+        background: antiquewhite;
+        height: 100%;
+        width: 100%;
+
+    }
+
+    .chat-wrapper {
+        background: cadetblue;
+        float: left;
+        height: 25%;
+        min-height: 10em;
+        width: 100%;
+    }
+
+    .groupA-wrapper {
+        float: left;
+        width: 40%;
+    }
+
+    .groupB-wrapper {
+        float: left;
+        width: 60%;
+    }
+
+    .player-item-wrapper {
+        height: 25%;
+        background: lightsteelblue;
+    }
+
+    #player1{
+        background: #fad;
+        order: 1;
+    }
+    #player2{
+        background: #adf;
+        order: 2;
+    }
+    #player3{
+        background: #aff;
+        order: 3;
+    }
+    #player4{
+        background: #ffa;
+        order: 4;
+    }
+
+
+    .aiue-board{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+    .aiue-line{
+        display: block;
+    }
+    .aiue-line button{
+        display: block;
+        width: 3em;
+        height: 3em;
+        margin: 0.4em 0.2em;
+        border-radius: 10%;
+        border-width: 0.2em;
+        color: whitesmoke;
+        background: darkslategrey;
+    }
+    .aiue-line button:hover{
+        color: darkslategrey;
+        background: whitesmoke;
+    }
 }
 
-.left-wrapper {
-    float: left;
-    width: 60%;
-}
-
-.player-item-wrapper{
-    height: 25%;
-    background: lightsteelblue;
-}
-.player-item-wrapper:nth-child(odd){
-    background-color: lightskyblue;
-}
+/* https://www.webcreatorbox.com/tech/css-flexbox-cheat-sheet */
