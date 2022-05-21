@@ -178,12 +178,13 @@
           </div>
         </div>
       </div>
+      
 
       <div class="wrapper groupB-wrapper">
         <div class="wrapper board-wrapper">
           <div class="aiue-board">
             <div class="aiue-line">
-              <button type="button" class="aiue-button"><span class="aiue-char">あ</span></button>
+              <button type="radio" class="aiue-button"><span class="aiue-char">あ</span></button>
               <button type="button" class="aiue-button"><span class="aiue-char">あ</span></button>
               <button type="button" class="aiue-button"><span class="aiue-char">あ</span></button>
               <button type="button" class="aiue-button"><span class="aiue-char">あ</span></button>
@@ -254,19 +255,38 @@
             </div>
           </div>
         </div>
-        <div class="wrapper chat-wrapper">
-          <!-- <div>uuuuuuuuuuuuuu</div> -->
+
+        <div class="game">
+          
         </div>
       </div>
     </div>
 
 
     <div class="wrapper footer-wrapper">
+      <div class="wrapper chatlog-wrapper">
+        <!-- <div>uuuuuuuuuuuuuu</div> -->
+      </div>
+      <div class="wrapper chatbox-wrapper">
+        <form id="chat-form" class="chat-form">
+          <div class="bms_send">
+            <label for="FlexTextarea">chat</label>
+            <div class="FlexTextarea">
+              <div class="FlexTextarea__dummy" aria-hidden="true">hello world!</div>
+              <textarea id="FlexTextarea" class="FlexTextarea__textarea"></textarea>
+            </div><input type="submit" class="bms_send_btn" value="Send">
+          </div>
 
+
+        </form>
+      </div>
     </div>
 
 
   </div>
+
+
+  <script src="../public/js/resize_textarea.js"></script>
 </body>
 
 </html>
