@@ -39,8 +39,10 @@ body {
 
 .header-wrapper {
     width: 100%;
-    height: 5em;
-    /* background: #777; */
+    height: 5em; 
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 .header-title {
@@ -118,11 +120,6 @@ body {
     cursor: pointer;
 }
 
-.aiue-line>.aiue-button:checked {
-    color: #333;
-    background: var(--color-player-0);
-}
-
 .aiue-button {
     border-radius: 10%;
     border-width: 0.3em;
@@ -130,6 +127,11 @@ body {
     border: solid;
     background: #333;
     color: var(--color-player-0);
+}
+
+.selected {
+    color: #333;
+    background: var(--color-player-0);
 }
 
 .player-item-wrapper {
@@ -220,7 +222,7 @@ body {
 }
 
 .aiue-char {
-    font-size: min(150%, 2em);
+    font-size: 2em;
 }
 
 
@@ -531,4 +533,8 @@ body {
 .FlexTextarea__textarea::-webkit-scrollbar-thumb:hover,
 .chat-log::-webkit-scrollbar-thumb:hover {
     background-color: rgba(144, 238, 144, 1);
+}
+
+.hide{
+    display: none !important;
 }

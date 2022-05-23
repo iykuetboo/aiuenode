@@ -20,10 +20,30 @@
 
     <div class="wrapper header-wrapper">
       <div class="header-title">あいうえバトル online</div>
+      <div class="only-ongame">
+        <form id="logout-form">
+          <input type="submit" class="btn btn-primary" value="Leave room">
+        </form>
+      </div>
     </div>
 
+    <div class="body-wrapper only-title">
 
-    <div class="wrapper body-wrapper">
+      <form id="login-form">
+        <div class="form-group">
+          <label>Room</label>
+          <input type="text" name="room" class="form-control" placeholder="Enter Room ID">
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="name" class="form-control" placeholder="Enter Your Name">
+        </div>
+        <input type="submit" class="btn btn-primary" value="LogIn">
+      </form>
+
+    </div>
+
+    <div class="wrapper body-wrapper only-ongame">
       <div class="wrapper groupA-wrapper">
         <div class="wrapper players-wrapper">
           <div class="wrapper player-item-wrapper player1" id="player1">
@@ -398,17 +418,17 @@
               <textarea id="FlexTextarea" class="FlexTextarea__textarea"></textarea>
             </div><input type="submit" class="bms_send_btn" value="Send">
           </div>
-
-
         </form>
       </div>
     </div>
-
-
   </div>
 
 
+  <script src="../public/js/socket_setup.js"></script>
+  <script src="../public/js/socket_msg.js"></script>
+  <script src="../public/js/socket_login.js"></script>
   <script src="../public/js/resize_textarea.js"></script>
+  <script src="../public/js/game.js"></script>
 </body>
 
 </html>

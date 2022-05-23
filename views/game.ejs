@@ -11,7 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
   <link rel="stylesheet" href="./css/test3.css">
-  <script src="/socket.io/socket.io.js"></script>
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
 
 </head>
 
@@ -20,30 +20,10 @@
 
     <div class="wrapper header-wrapper">
       <div class="header-title">あいうえバトル online</div>
-      <div class="only-ongame">
-        <form id="logout-form">
-          <input type="submit" class="btn btn-primary" value="Leave room">
-        </form>
-      </div>
     </div>
 
-    <div class="body-wrapper only-title">
 
-      <form id="login-form">
-        <div class="form-group">
-          <label>Room</label>
-          <input type="text" name="room" class="form-control" placeholder="Enter Room ID">
-        </div>
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" name="name" class="form-control" placeholder="Enter Your Name">
-        </div>
-        <input type="submit" class="btn btn-primary" value="LogIn">
-      </form>
-
-    </div>
-
-    <div class="wrapper body-wrapper only-ongame">
+    <div class="wrapper body-wrapper">
       <div class="wrapper groupA-wrapper">
         <div class="wrapper players-wrapper">
           <div class="wrapper player-item-wrapper player1" id="player1">
@@ -258,74 +238,74 @@
         <div class="wrapper board-wrapper">
           <div class="aiue-board">
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="1"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="2"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="3"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="4"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="5"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="11"><span class="aiue-char">か</span></button>
-              <button type="button" class="aiue-button" name="12"><span class="aiue-char">き</span></button>
-              <button type="button" class="aiue-button" name="13"><span class="aiue-char">く</span></button>
-              <button type="button" class="aiue-button" name="14"><span class="aiue-char">け</span></button>
-              <button type="button" class="aiue-button" name="15"><span class="aiue-char">こ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="21"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="22"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="23"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="24"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="25"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="31"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="32"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="33"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="34"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="35"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="41"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="42"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="43"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="44"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="45"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="51"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="52"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="53"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="54"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="55"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="61"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="62"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="63"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="64"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="65"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="71"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="72"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="73"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="74"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="75"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="81"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="82"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="83"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="84"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="85"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
             <div class="aiue-line">
-              <button type="button" class="aiue-button" name="91"><span class="aiue-char">あ</span></button>
-              <button type="button" class="aiue-button" name="92"><span class="aiue-char">い</span></button>
-              <button type="button" class="aiue-button" name="93"><span class="aiue-char">う</span></button>
-              <button type="button" class="aiue-button" name="94"><span class="aiue-char">え</span></button>
-              <button type="button" class="aiue-button" name="95"><span class="aiue-char">お</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">あ</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">い</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">う</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">え</span></button>
+              <button type="button" class="aiue-button" name="aiue-board"><span class="aiue-char">お</span></button>
             </div>
           </div>
         </div>
@@ -373,13 +353,11 @@
       </div>
     </div>
 
-    <div class="wrapper footer-wrapper only-title">
-    </div>
 
-    <div class="wrapper footer-wrapper only-ongame">
+    <div class="wrapper footer-wrapper">
       <div class="wrapper chatlog-wrapper">
         <div class="chat-log">
-          <table id="msg-box">
+          <table>
             <tr>
               <td class="chatlog-speaker">テキスト</td>
               <td class="chatlog-separator"> : </td>
@@ -417,21 +395,21 @@
             <label for="FlexTextarea">チャット</label>
             <div class="FlexTextarea">
               <div class="FlexTextarea__dummy" aria-hidden="true">hello world!</div>
-              <textarea id="FlexTextarea" class="FlexTextarea__textarea" name="text"></textarea>
-            </div>
-            <input type="submit" class="bms_send_btn" value="Send">
+              <textarea id="FlexTextarea" class="FlexTextarea__textarea"></textarea>
+            </div><input type="submit" class="bms_send_btn" value="Send">
           </div>
+
+
         </form>
       </div>
     </div>
   </div>
 
 
-  <script src="./js/socket_setup.js"></script>
+  <!-- <script src="./js/socket_setup.js"></script>
   <script src="./js/socket_msg.js"></script>
-  <script src="./js/socket_login.js"></script>
+  <script src="./js/socket_login.js"></script> -->
   <script src="./js/resize_textarea.js"></script>
-  <script src="./js/game.js"></script>
 </body>
 
 </html>

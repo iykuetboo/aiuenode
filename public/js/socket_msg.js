@@ -1,11 +1,22 @@
 socket.on('system-msg',(msg)=>{
-    console.log("system: "+msg)
-    $("#msg-box").append(`<div class='system-msg'>system: ${msg}</div>`)
+    console.log("system: "+msg);
+    $("#msg-box").prepend(`
+    <tr>
+      <td class="chatlog-speaker">system</td>
+      <td class="chatlog-separator"> : </td>
+      <td class="chatlog-text">${msg}</td>
+    </tr>`);
+    $("#msg-box").parent().scrollTop = 0;
 })
 
 socket.on('chat-msg',(msg)=>{
-    console.log(`${msg.sender}: ${msg.text}`)
-    $("#msg-box").append(`<div class='chat-msg'>${msg.sender}: ${msg.text}</div>`)
+    console.log(`${msg.sender}: ${msg.text}`);
+    $("#msg-box").prepend(`
+    <tr>
+      <td class="chatlog-speaker player${msg.p_id}">${msg.sender}</td>
+      <td class="chatlog-separator"> : </td>
+      <td class="chatlog-text">${msg.text}</td>
+    </tr>`);
 })
 
 $('#chat-form').submit(function (e) {

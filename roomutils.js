@@ -1,8 +1,13 @@
+
+const gameutils = require('./gameutils');
+const Game = gameutils.Game;
+
 class Room {
     constructor(id) {
         this._id = id;
         this._players = [];
-        this._capacity = 6;
+        this._capacity = 4;
+        this._game = new Game(this)
         
         if (typeof Room.dict == 'undefined') {
             Room.dict = {}
@@ -15,7 +20,6 @@ class Room {
     }
 
     emit(key, data, except_ids = []) {
-
         if (!Array.isArray(except_ids)) {
             except_ids = [except_ids]
         }
@@ -36,6 +40,15 @@ class Room {
             }
             return err;
         }
+    }
+
+    player_index(p) {
+        return this.players.indexOf(p);
+    }
+
+    game_action(p,data){
+        const p_i = this.player_index(p)
+        this._game.action(p_i,data)
     }
 
     static set_io(io) {

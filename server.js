@@ -60,8 +60,14 @@ io.on('connection', (socket) => {
   socket.on('chat', (data) => {
     const p = Player.get(socket.id)
     const r = Room.get(p.joined_room)
-    r.emit('chat-msg', {sender:p.name, text:data.text})
-  })
+    r.emit('chat-msg', {sender:p.name, text:data.text, p_id:r.player_index(p)})
+  });
+
+  socket.on('game', (data) =>{
+    const p = Player.get(socket.id);
+    const r = Room.get(p.joined_room);
+    r.game_action(p,data);
+  });
 
 });
 
