@@ -14,8 +14,8 @@ socket.on('chat-msg',(msg)=>{
     $("#msg-box").prepend(`
     <tr>
       <td class="chatlog-speaker player${msg.p_id}">${msg.sender}</td>
-      <td class="chatlog-separator"> : </td>
-      <td class="chatlog-text">${msg.text}</td>
+      <td class="chatlog-separator  player${msg.p_id}"> : </td>
+      <td class="chatlog-text  player${msg.p_id}">${msg.text}</td>
     </tr>`);
 })
 

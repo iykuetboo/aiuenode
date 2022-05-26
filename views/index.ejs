@@ -20,14 +20,14 @@
 
     <div class="wrapper header-wrapper">
       <div class="header-title">あいうえバトル online</div>
-      <div class="only-ongame">
+      <div class="switch-view ongame standby">
         <form id="logout-form">
           <input type="submit" class="btn btn-primary" value="Leave room">
         </form>
       </div>
     </div>
 
-    <div class="body-wrapper only-title">
+    <div class="body-wrapper switch-view roomselect">
 
       <form id="login-form">
         <div class="form-group">
@@ -43,8 +43,9 @@
 
     </div>
 
-    <div class="wrapper body-wrapper only-ongame">
-      <div class="wrapper groupA-wrapper">
+    <div class="wrapper body-wrapper switch-view ongame standby">
+      
+      <div class="wrapper groupA-wrapper switch-view ongame standby">
         <div class="wrapper players-wrapper">
           <div class="wrapper player-item-wrapper player1" id="player1">
             <div class="player-item">
@@ -253,8 +254,11 @@
         </div>
       </div>
 
+      <div class="wrapper groupB-wrapper switch-view standby">
+        standby now
+      </div>
 
-      <div class="wrapper groupB-wrapper">
+      <div class="wrapper groupB-wrapper switch-view ongame">
         <div class="wrapper board-wrapper">
           <div class="aiue-board">
             <div class="aiue-line">
@@ -354,7 +358,7 @@
             </svg>
             <span class="text">Back</span>
           </button> -->
-          <button type="button" class="game-control-button">
+          <button type="button" class="game-control-button" id="attack-button">
             <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
               xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 8.4666666 8.4666666"
@@ -373,10 +377,10 @@
       </div>
     </div>
 
-    <div class="wrapper footer-wrapper only-title">
+    <div class="wrapper footer-wrapper switch-view roomselect">
     </div>
 
-    <div class="wrapper footer-wrapper only-ongame">
+    <div class="wrapper footer-wrapper switch-view ongame standby">
       <div class="wrapper chatlog-wrapper">
         <div class="chat-log">
           <table id="msg-box">

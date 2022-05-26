@@ -520,6 +520,12 @@ body {
 .FlexTextarea__textarea::-webkit-scrollbar,
 .chat-log::-webkit-scrollbar {
     width: 1em;
+    border-radius: inherit;
+}
+
+.FlexTextarea__textarea::-webkit-scrollbar:hover,
+.chat-log::-webkit-scrollbar:hover {
+    background-color: rgba(144, 238, 144, 0.4);
 }
 
 .FlexTextarea__textarea::-webkit-scrollbar-thumb,

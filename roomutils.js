@@ -7,8 +7,8 @@ class Room {
         this._id = id;
         this._players = [];
         this._capacity = 4;
-        this._game = new Game(this)
-        
+        this._ongame = false;
+
         if (typeof Room.dict == 'undefined') {
             Room.dict = {}
         }
@@ -42,13 +42,29 @@ class Room {
         }
     }
 
-    player_index(p) {
-        return this.players.indexOf(p);
+    game_action(p,data){
+        if(this._ongame==false){return;}
+        const p_i = this.players.indexOf(p)+1;
+        this._game.action(p_i,data)
     }
 
-    game_action(p,data){
-        const p_i = this.player_index(p)
-        this._game.action(p_i,data)
+    game_start(){
+        if(this._ongame==true){return;}
+        this._game = new Game(this,this.players.length);
+        this._ongame = true;
+        const game_status = this._game.status
+        this.emit("game-start",game_status)
+    }
+
+    ready(p){
+        p.isready = true;
+        if (this.players.filter(v=>v.isready==false).length == 0){
+            this.game_start();
+        }
+    }
+
+    player_index(p){
+        return this.players.indexOf(p)+1;
     }
 
     static set_io(io) {
@@ -73,6 +89,7 @@ class Player {
         this._socket_id = socket_id;
         this._joined_room = null;
         this._name = null;
+        this._isready = false;
         if (typeof Player.dict == 'undefined') {
             Player.dict = {}
         }
@@ -136,7 +153,9 @@ class Player {
     get joined_room() { return this._joined_room; }
     get socket_id() { return this._socket_id; }
     get name() { return this._name; }
-    set name(v) { this._name = v }
+    set name(v) { this._name = v ;}
+    get isready() {return this._isready;}
+    set isready(v) {this._isready = v;}
 }
 
 // function join(r,p){

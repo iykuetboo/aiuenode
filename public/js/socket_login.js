@@ -5,7 +5,7 @@ $('#login-form').submit(function (e) {
     var name = $('#login-form [name="name"]').val();
     socket.emit('login', { room: room, name: name });
     
-    update_view("ongame")
+    update_view("standby")
 });
 
 
