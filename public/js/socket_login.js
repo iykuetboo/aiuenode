@@ -15,3 +15,9 @@ $('#logout-form').submit(function (e) {
 
     update_view("title");
 });
+
+$('#standby-form').submit(function (e) {
+    e.preventDefault();
+    socket.emit('get-ready', {});
+    $('#standby-form > .bms_send_btn').addClass('disabled');
+});

@@ -10,13 +10,13 @@ socket.on('system-msg',(msg)=>{
 })
 
 socket.on('chat-msg',(msg)=>{
-    console.log(`${msg.sender}: ${msg.text}`);
-    $("#msg-box").prepend(`
-    <tr>
-      <td class="chatlog-speaker player${msg.p_id}">${msg.sender}</td>
-      <td class="chatlog-separator  player${msg.p_id}"> : </td>
-      <td class="chatlog-text  player${msg.p_id}">${msg.text}</td>
-    </tr>`);
+  console.log(`${msg.sender}: ${msg.text}`);
+  $("#msg-box").prepend(`
+  <tr>
+    <td class="chatlog-speaker player${msg.p_id}">${msg.sender}</td>
+    <td class="chatlog-separator  player${msg.p_id}"> : </td>
+    <td class="chatlog-text  player${msg.p_id}">${msg.text}</td>
+  </tr>`);
 })
 
 $('#chat-form').submit(function (e) {

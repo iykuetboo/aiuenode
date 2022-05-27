@@ -28,6 +28,9 @@ class Room {
             .filter(p => !(p.socket_id in except_ids))
             .map(p => { Room.io.to(p.socket_id).emit(key, data) });
     }
+    to(socket_id){
+       return Room.io.to(socket_id);
+    }
 
     remove_player(p) {
         if (this.players.find(v => v.socket_id == p.socket_id)) {
@@ -44,16 +47,14 @@ class Room {
 
     game_action(p,data){
         if(this._ongame==false){return;}
-        const p_i = this.players.indexOf(p)+1;
-        this._game.action(p_i,data)
+        this._game.action(p,data)
     }
 
     game_start(){
         if(this._ongame==true){return;}
-        this._game = new Game(this,this.players.length);
+        this._game = new Game(this,this.players);
         this._ongame = true;
-        const game_status = this._game.status
-        this.emit("game-start",game_status)
+        this.emit("game-start",this._game.info)
     }
 
     ready(p){
@@ -152,6 +153,7 @@ class Player {
 
     get joined_room() { return this._joined_room; }
     get socket_id() { return this._socket_id; }
+    get id() { return this._socket_id; }
     get name() { return this._name; }
     set name(v) { this._name = v ;}
     get isready() {return this._isready;}
