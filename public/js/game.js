@@ -30,10 +30,11 @@ $(".aiue-line > .aiue-button").click(function () {
             if (selected) {
                 selected.classList.remove("selected");
             }
-            console.log($(this));
-            selected = $(this)[0];
-            $(this)[0].classList.add("selected");
-            console.log(`aiue-button ${selected.name} clicked`);
+            if ($(this)[0].classList.contains("interact")) {
+                selected = $(this)[0];
+                $(this)[0].classList.add("selected");
+                console.log(`aiue-button ${selected.name} clicked`);
+            }
             break
     }
 
@@ -80,7 +81,59 @@ function set_gamestatus_message(msg) {
     });
 }
 
-render_mywords("おはよう！")
+
+function set_players_info(players, public_words) {
+    $(".player-item").each((i, e) => {
+        console.log($(e).find(".player-name"))
+        console.log(public_words)
+        if(i<players.length){
+            $(e).removeClass("hide")
+            $(e).find(".player-name").html(players[i]._name);
+            $(e).find(".aiue-char").each((j, v) => {
+                v.innerHTML = public_words[i].charAt(j)
+            });
+        }else{
+            $(e).addClass("hide")
+        }
+    })
+}
+
+
+function set_board(board) {
+    $(".aiue-board .aiue-button").each((i, e) => {
+        const c = e.name;
+        switch (board[c]) {
+            case 0:
+                e.innerHTML = `<span class="aiue-char">${c}</span>`;
+                $(e).removeClass("disabled");
+                break;
+            case "x":
+            case undefined:
+                e.innerHTML = `<span class="aiue-char"> </span>`;
+                $(e).addClass("disabled");
+                $(e).addClass("no-border");
+                break;
+            default:
+                e.innerHTML = `<span class="aiue-char player${board[c]}">${c}</span>`;
+                $(e).addClass("disabled");
+        }
+    })
+}
+
+function set_interaction(q, val) {
+    console.log("set_interaction")
+    q.each((i,e)=>{
+        if(val==true && $(e).hasClass("disabled")==false){
+            $(e).addClass("interact");
+        }else{
+            $(e).removeClass("interact");
+        }
+    })
+}
+
+
+
+
 
 document.addEventListener('keypress', keypress_ivent);
 

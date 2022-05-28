@@ -8,6 +8,11 @@ socket.on('game-start', (data) => {
     update_view("ongame")
 })
 
+socket.on('game-info',(data)=>{
+    set_players_info(data.players, data.public_words)
+    set_board(data.board)
+})
+
 socket.on('set-word-start', () => {
     console.log("set-word-start");
     state = "set-word"
@@ -38,8 +43,9 @@ socket.on('turn-change', (data) => {
     if(data.index==p_i){
         console.log("it's my turn")
         state = "attack"
-        $(".aiue-line > .aiue-button").addClass("interact")
-        $("#attack-button").addClass("interact")
+        set_interaction($(".aiue-line > .aiue-button"),true)
+        // $(".aiue-line > .aiue-button").addClass("interact")
+        // $("#attack-button").addClass("interact")
     }else{
         state = "wait"
         $(".aiue-line > .aiue-button").removeClass("interact")

@@ -292,6 +292,7 @@ body {
     display: flex;
     justify-content: center;
     max-width: 64vh;
+    min-width: 400px;
     margin: auto;
 }
 
@@ -600,9 +601,6 @@ body {
     display: none !important;
 }
 
-
-@media only screen and (max-width: 1200px) {
-    #my-word .aiue-char {
-        font-size: 1em;
-    }
+.no-border{
+    border: none;
 }

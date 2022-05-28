@@ -12,6 +12,7 @@ class Game {
         });
         this._waiting = Array.from(Array(players.length), (v, k) => k + 1);
 
+        this.emit_info()
         this.start_set_words()
     }
 
@@ -74,8 +75,8 @@ class Game {
             word_extended += "x"
         }
 
-        this._player_words[p_i] = word_extended;
-        console.log(`player${p_i}'s word is ${this._player_words[p_i]}`)
+        this._player_words[p_i-1] = word_extended;
+        console.log(`player${p_i}'s word is ${this._player_words[p_i-1]}`)
         this._emitter.to(p.id).emit("set-word-ok")
 
         this._waiting = this._waiting.filter(v=>v!=p_i)
@@ -99,13 +100,43 @@ class Game {
 
         this._board[char] = p_i
 
-        console.log(this._board)
+        this.update_public_words()
+
+        this.emit_info()
+
+        this.check_defeated()
+
         const p_i_next = (p_i)%this._players.length + 1
         this._waiting = [p_i_next]
         this._emitter.emit("turn-change",{index:p_i_next,name:this._players[p_i_next-1].name})
     }
 
-    get info() { return { state: this._state, board: this._board, players: this._players, words: this._public_words }; }
+    update_public_words(){
+        this._public_words = []
+        for(let i=0;i<this._players.length;i++){
+            let a = "";
+            let remains = 0;
+            Array.from(this._player_words[i]).forEach(c=>{
+                if(this._board[c]==0){remains += 1;}
+                a += (this._board[c] > 0) ? c : "?"
+            })
+            if(remains==0){
+                a = this._player_words[i];
+            }
+            this._public_words.push(a)
+            console.log(`public_word of player${i+1} is ${a}`)
+        }
+    }
+
+    check_defeated(){
+        console.log("not implemented")
+    }
+
+    emit_info(){
+        this._emitter.emit("game-info",this.info)
+    }
+
+    get info() { return { state: this._state, board: this._board, players: this._players, public_words: this._public_words }; }
 }
 
 module.exports = { Game, Game }
