@@ -33,11 +33,6 @@ body {
     width: 100%;
 }
 
-.body-wrapper {
-    height: calc(75% - 5em);
-    width: 100%;
-}
-
 .header-wrapper {
     width: 100%;
     height: 5em;
@@ -52,11 +47,11 @@ body {
     padding: 1em;
 }
 
-/* for pc and tablet */
-/* @media only screen and (min-width: 768px) { */
-
 .body-wrapper {
+    height: calc(75% - 5em);
+    width: 100%;
     display: flex;
+    justify-content: center;
     flex-direction: row-reverse;
 }
 
@@ -155,7 +150,6 @@ body {
     stroke: var(--color-player-2);
 }
 
-
 .player3 {
     order: 3;
     border-color: var(--color-player-3);
@@ -168,6 +162,22 @@ body {
     border-color: var(--color-player-4);
     color: var(--color-player-4);
     stroke: var(--color-player-4);
+}
+
+.reverse-color .aiue-char{
+    color: #333;
+}
+.player1 .reverse-color{
+    background-color: var(--color-player-1);
+}
+.player2 .reverse-color{
+    background-color: var(--color-player-2);
+}
+.player3 .reverse-color{
+    background-color: var(--color-player-3);
+}
+.player4 .reverse-color{
+    background-color: var(--color-player-4);
 }
 
 .player1 .aiue-button {
@@ -374,13 +384,6 @@ body {
     color: var(--color-player-0);
     align-items: center;
 }
-
-/* .bms_send_btn:hover {
-    cursor: pointer;
-    color: #333;
-    background: var(--color-player-0);
-} */
-
 
 .bms_send_btn.disabled {
     cursor: default;
@@ -589,6 +592,19 @@ body {
     width: 100%;
     color: var(--color-player-0);
     font-size: large;
+}
+
+.ranking{
+    color: var(--color-player-0);
+}
+
+.ranking p{
+    font-size: x-large;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+.ranking-number{
+    color: var(--color-player-0);
 }
 
 .interact:hover {

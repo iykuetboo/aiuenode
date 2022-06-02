@@ -6,14 +6,11 @@ class Game {
         this._public_words = Array.from(Array(players.length), (v, k) => "????????")
         this._state = "set-words";
         this._emitter = emitter;
+        this._player_defeat_state = Array.from(Array(players.length), (v, k) => 0) // 0 for default, 1-4 for defeated order, 100 for retired
+        this._remain_player_number = players.length
         this._board = {}
-        Game.kana.forEach(v => {
-            this._board[v] = 0;
-        });
         this._waiting = Array.from(Array(players.length), (v, k) => k + 1);
-
-        this.emit_info()
-        this.start_set_words()
+        this.initialize();
     }
 
     static kana = Array.from("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんー")
@@ -21,6 +18,7 @@ class Game {
         "set-theme": ["set-theme"],
         "set-words": ["set-word"],
         "main-loop": ["attack"],
+        "wait-restart": ["restart"],
     }
 
     player_index(p) { return this._players.indexOf(p) + 1; }
@@ -50,16 +48,38 @@ class Game {
                 break;
 
             case "attack":
-                this.attack_action(p,data.value)
+                this.attack_action(p, data.value)
                 break;
 
-
+            case "restart":
+                this.restart_action(p, data.value)
+                break
         }
+
+        console.log(`waiting: ${this._waiting}`)
+    }
+
+    initialize() {
+        console.log(`initialize()`)
+
+        this._player_defeat_state = Array.from(Array(this._players.length), (v, k) => 0) // 0 for default, 1-4 for defeated order, 100 for retired
+        this._board = {}
+        Game.kana.forEach(v => {
+            this._board[v] = 0;
+        });
+
+        this.start_set_words()
+
+        this.emit_info()
     }
 
     start_set_words() {
         this._state = "set-words"
         this._emitter.emit("set-word-start")
+        this._player_words = Array.from(Array(this._players.length), (v, k) => "xxxxxxxx")
+        this._public_words = Array.from(Array(this._players.length), (v, k) => "????????")
+        this._waiting = Array.from(Array(this._players.length), (v, k) => k + 1);
+        this._state = "set-words";
     }
 
     set_word_action(p, word) {
@@ -75,27 +95,26 @@ class Game {
             word_extended += "x"
         }
 
-        this._player_words[p_i-1] = word_extended;
-        console.log(`player${p_i}'s word is ${this._player_words[p_i-1]}`)
+        this._player_words[p_i - 1] = word_extended;
+        console.log(`player${p_i}'s word is ${this._player_words[p_i - 1]}`)
         this._emitter.to(p.id).emit("set-word-ok")
 
-        this._waiting = this._waiting.filter(v=>v!=p_i)
-        console.log(`waiting: ${this._waiting}`)
-        if(this._waiting.length==0){
+        this._waiting = this._waiting.filter(v => v != p_i)
+        if (this._waiting.length == 0) {
             this.start_main_loop();
         }
     }
 
-        
+
     start_main_loop() {
         console.log("start main-loop")
         this._state = "main-loop"
-        this._emitter.emit("start-main-loop",{})
+        this._emitter.emit("start-main-loop", {})
         this._waiting = [1]
-        this._emitter.emit("turn-change",{index:1,name:this._players[0].name})
+        this._emitter.emit("turn-change", { index: 1, name: this._players[0].name })
     }
 
-    attack_action(p,char){
+    attack_action(p, char) {
         const p_i = this.player_index(p)
 
         this._board[char] = p_i
@@ -104,39 +123,94 @@ class Game {
 
         this.emit_info()
 
-        this.check_defeated()
+        const end = this.check_defeated()
 
-        const p_i_next = (p_i)%this._players.length + 1
+        if(end){return;}
+
+        const p_i_next = (p_i) % this._players.length + 1
         this._waiting = [p_i_next]
-        this._emitter.emit("turn-change",{index:p_i_next,name:this._players[p_i_next-1].name})
+        this._emitter.emit("turn-change", { index: p_i_next, name: this._players[p_i_next - 1].name })
     }
 
-    update_public_words(){
+    update_public_words() {
         this._public_words = []
-        for(let i=0;i<this._players.length;i++){
+        for (let i = 0; i < this._players.length; i++) {
+            let remains = 0
             let a = "";
-            let remains = 0;
-            Array.from(this._player_words[i]).forEach(c=>{
-                if(this._board[c]==0){remains += 1;}
+            Array.from(this._player_words[i]).forEach(c => {
+                if (this._board[c] == 0) { remains += 1; }
                 a += (this._board[c] > 0) ? c : "?"
             })
-            if(remains==0){
-                a = this._player_words[i];
-            }
+            if (remains == 0) { a = this._player_words[i] }
             this._public_words.push(a)
-            console.log(`public_word of player${i+1} is ${a}`)
         }
     }
 
-    check_defeated(){
-        console.log("not implemented")
+    check_defeated() {
+        console.log(`check_defeated: ${this._public_words}`)
+
+        for (let i = 0; i < this._players.length; i++) {
+            if (this._player_defeat_state[i] == 0) {
+                if (this._public_words[i].indexOf("?") == -1) {
+                    this._player_defeat_state[i] = this._remain_player_number
+                }
+            }
+        }
+        this._remain_player_number = this._player_defeat_state.filter(v => v == 0).length
+
+        if (this._remain_player_number <= 1) {
+            this.finish_game()
+            return true
+        }
+        
+        return false
     }
 
-    emit_info(){
-        this._emitter.emit("game-info",this.info)
+    finish_game() {
+        console.log("finish_game")
+        let ranking = [];
+
+        argsort(this._player_defeat_state).forEach((rank,index) => {
+            ranking.push({ "rank": this._player_words.length - rank, "player": this._players[index], "p_i": index + 1 })
+            console.log(`rank=${this._player_words.length - rank}, player${this._players[index]}, p_i=${index +  1}`)
+        })
+
+        this._emitter.emit("game-finish", ranking)
+        this._waiting = Array.from(Array(this._players.length), (v, k) => k + 1);
+        this._state = "wait-restart"
+    }
+
+    restart_action(p, data) {
+        const p_i = this.player_index(p)
+        this._emitter.to(p.id).emit("restart ok. waiting other players")
+
+        this._waiting = this._waiting.filter(v => v != p_i)
+        if (this._waiting.length == 0) {
+            this.initialize();
+        }
+    }
+
+    emit_info() {
+        this._emitter.emit("game-info", this.info)
+        // console.log(this.info)
     }
 
     get info() { return { state: this._state, board: this._board, players: this._players, public_words: this._public_words }; }
+}
+
+function argsort(array) {
+    const arrayObject = array.map((value, idx) => { return { value, idx }; });
+    arrayObject.sort((a, b) => {
+        if (a.value < b.value) {
+            return 1;
+        }
+        if (a.value > b.value) {
+            return -1;
+        }
+        return 0;
+    });
+    const argIndices = arrayObject.map(data => data.idx);
+    return argIndices;
 }
 
 module.exports = { Game, Game }

@@ -5,9 +5,9 @@ let state = "set-word"
 let myword = ""
 let p_i = 0;
 
-function update_view(state) {
+function update_view(v) {
     $('.switch-view').each(function (index, element) {
-        if ($(element).hasClass(state)) {
+        if ($(element).hasClass(v)) {
             $(element).removeClass("hide");
         }
         else {
@@ -89,8 +89,14 @@ function set_players_info(players, public_words) {
         if(i<players.length){
             $(e).removeClass("hide")
             $(e).find(".player-name").html(players[i]._name);
-            $(e).find(".aiue-char").each((j, v) => {
-                v.innerHTML = public_words[i].charAt(j)
+            $(e).find(".aiue-button").each((j, v) => {
+                const c = public_words[i].charAt(j)
+                v.innerHTML = `<span class="aiue-char">${c}</span>`
+                if(c!="?"){
+                    $(v).addClass("reverse-color")
+                }else{
+                    $(v).removeClass("reverse-color")
+                }
             });
         }else{
             $(e).addClass("hide")

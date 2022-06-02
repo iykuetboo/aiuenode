@@ -59,7 +59,7 @@ class Room {
 
     ready(p){
         p.isready = true;
-        if (this.players.filter(v=>v.isready==false).length == 0){
+        if (this.players.filter(v=>v.isready==false).length == 0 && this.players.length > 1){
             this.game_start();
         }
     }

@@ -21,3 +21,9 @@ $('#standby-form').submit(function (e) {
     socket.emit('get-ready', {});
     $('#standby-form > .bms_send_btn').addClass('disabled');
 });
+
+$('#restart-form').submit(function (e) {
+    e.preventDefault();
+    socket.emit('game', {action:"restart"});
+    $('#restart-form > .bms_send_btn').addClass('disabled');
+});

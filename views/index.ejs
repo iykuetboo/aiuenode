@@ -29,7 +29,7 @@
 
     <div class="wrapper body-wrapper">
 
-      <div class="wrapper groupA-wrapper switch-view ongame standby">
+      <div class="wrapper groupA-wrapper switch-view ongame result">
         <div class="wrapper players-wrapper">
           <div class="wrapper player-item-wrapper player1" id="player1">
             <div class="player-item">
@@ -259,6 +259,36 @@
           <div>Are You Ready ?</div>
           <form id="standby-form">
             <input type="submit" class="bms_send_btn interact" value="準備完了!!">
+          </form>
+        </div>
+      </div>
+
+      <div class="wrapper groupB-wrapper switch-view result">
+        <div class="flex-center ranking">
+          <p>Game Set!!</p>
+          <div>
+            <table id="ranking-table">
+              <tr>
+                <td class="ranking-number">1.</td>
+                <td class="ranking-name player1">a-than</td>
+              </tr>
+              <tr>
+                <td class="ranking-number">2.</td>
+                <td class="ranking-name player3">b-than</td>
+              </tr>
+              <tr>
+                <td class="ranking-number">3.</td>
+                <td class="ranking-name player4">c-than</td>
+              </tr>
+              <tr>
+                <td class="ranking-number">4.</td>
+                <td class="ranking-name player2">e-than</td>
+              </tr>
+            </table>
+          </div>
+
+          <form id="restart-form">
+            <input type="submit" class="bms_send_btn interact" value="次のゲームへ">
           </form>
         </div>
       </div>
