@@ -96,13 +96,14 @@ function set_gamestatus_message(msg) {
 }
 
 
-function set_players_info(players, public_words) {
+function set_players_info(players, public_words, stellas) {
     $(".player-item").each((i, e) => {
         console.log($(e).find(".player-name"))
         console.log(public_words)
         if (i < players.length) {
             $(e).removeClass("hide")
             $(e).find(".player-name").html(players[i]._name);
+            $(e).find(".player-stella-number").html(stellas[i]);
             $(e).find(".aiue-button").each((j, v) => {
                 const c = public_words[i].charAt(j)
                 v.innerHTML = `<span class="aiue-char">${c}</span>`

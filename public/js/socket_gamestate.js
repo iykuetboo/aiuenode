@@ -10,7 +10,7 @@ socket.on('game-start', (data) => {
 
 socket.on('game-info',(data)=>{
     console.log("game-info")
-    set_players_info(data.players, data.public_words)
+    set_players_info(data.players, data.public_words, data.stellas)
     set_board(data.board)
 })
 

@@ -3,6 +3,7 @@ class Game {
     constructor(emitter, players) {
         this._players = players
         this._player_words = Array.from(Array(players.length), (v, k) => "xxxxxxxx")
+        this._player_stellas = Array.from(Array(players.length), (v, k) => 0)
         this._public_words = Array.from(Array(players.length), (v, k) => "????????")
         this._state = "set-words";
         this._emitter = emitter;
@@ -178,11 +179,30 @@ class Game {
     finish_game() {
         console.log("finish_game")
         let ranking = [];
+        let rankmin = this._players.length
+        for (let i = 0; i < this._players.length; i++) {
+            let rank = 0;
+            if(this._player_defeat_state[i]==0){
+                rank = 1
+            }else{
+                rank = this._player_defeat_state[i]
+            }
+            ranking.push({ "rank": rank, "player": this._players[i], "p_i": i + 1 })
+            if(rankmin>rank){
+                rankmin = rank
+            }
+        }
 
-        argsort(this._player_defeat_state).forEach((rank,index) => {
-            ranking.push({ "rank": this._player_words.length - rank, "player": this._players[index], "p_i": index + 1 })
-            console.log(`rank=${this._player_words.length - rank}, player${this._players[index]}, p_i=${index +  1}`)
+        ranking.forEach((v,i)=>{v["rank"]=v["rank"]-rankmin+1})
+        
+        ranking.forEach(v=>{
+            this._player_stellas[v.p_i-1] += this._player_words.length -  v["rank"]
         })
+        // argsort(this._player_defeat_state).forEach((defeat,index) => {
+        //     this._player_stellas[index] += defeat
+        //     ranking.push({ "rank": this._player_words.length - defeat, "player": this._players[index], "p_i": index + 1 })
+        //     console.log(`rank=${this._player_words.length - defeat}, player${this._players[index]}, p_i=${index +  1}`)
+        // })
 
         ranking.sort((a, b) => {
             if (a["rank"] < b["rank"]) {
@@ -193,8 +213,9 @@ class Game {
             }
             return 0;
         });
-
+        
         this._emitter.emit("game-finish", ranking)
+        this.emit_info()
         this._waiting = Array.from(Array(this._players.length), (v, k) => k + 1);
         this._state = "wait-restart"
     }
@@ -214,7 +235,7 @@ class Game {
         // console.log(this.info)
     }
 
-    get info() { return { state: this._state, board: this._board, players: this._players, public_words: this._public_words }; }
+    get info() { return { state: this._state, board: this._board, players: this._players, public_words: this._public_words ,stellas:this._player_stellas}; }
 }
 
 function argsort(array) {
