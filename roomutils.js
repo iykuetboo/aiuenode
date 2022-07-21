@@ -110,7 +110,7 @@ class Player {
         if (room.remain_capacity() == false) {
             err = {
                 code: "over capacity",
-                msg: `Room:${r.id} is fully occupied. Please join other room.`
+                msg: `Room:${room.id} is fully occupied. Please join other room.`
             }
             return err;
         }

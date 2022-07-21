@@ -18,27 +18,41 @@ function update_view(v) {
 
 $(".aiue-line > .aiue-button").click(function () {
 
-    switch (state) {
-        case "set-word":
-            if (myword.length < 8) {
-                myword += $(this)[0].name
-            }
-            render_mywords(myword)
-            break
+    if ($(this)[0].classList.contains("interact")) {
+        switch (state) {
+            case "set-word":
+                if (myword.length < 8) {
+                    myword += $(this)[0].name
+                }
+                render_mywords(myword)
+                break
 
-        case "attack":
-            if (selected) {
-                selected.classList.remove("selected");
-            }
-            if ($(this)[0].classList.contains("interact")) {
+            case "attack":
+                if (selected) {
+                    selected.classList.remove("selected");
+                }
                 selected = $(this)[0];
                 $(this)[0].classList.add("selected");
                 console.log(`aiue-button ${selected.name} clicked`);
-            }
-            break
+                break
+        }
     }
-
 })
+
+$("#backspace-button").on("click", () => {
+    switch (state) {
+        case "set-word":
+            if (myword.length != 0) {
+                myword = myword.slice(0, -1)
+            }
+            render_mywords(myword)
+            break
+        default:
+            $("#backspace-button").addClass("hide")
+    }
+}
+)
+
 
 $("#attack-button").on("click", () => {
     switch (state) {
@@ -86,19 +100,19 @@ function set_players_info(players, public_words) {
     $(".player-item").each((i, e) => {
         console.log($(e).find(".player-name"))
         console.log(public_words)
-        if(i<players.length){
+        if (i < players.length) {
             $(e).removeClass("hide")
             $(e).find(".player-name").html(players[i]._name);
             $(e).find(".aiue-button").each((j, v) => {
                 const c = public_words[i].charAt(j)
                 v.innerHTML = `<span class="aiue-char">${c}</span>`
-                if(c!="?"){
+                if (c != "?") {
                     $(v).addClass("reverse-color")
-                }else{
+                } else {
                     $(v).removeClass("reverse-color")
                 }
             });
-        }else{
+        } else {
             $(e).addClass("hide")
         }
     })
@@ -106,6 +120,7 @@ function set_players_info(players, public_words) {
 
 
 function set_board(board) {
+    console.log("set_board")
     $(".aiue-board .aiue-button").each((i, e) => {
         const c = e.name;
         switch (board[c]) {
@@ -128,10 +143,10 @@ function set_board(board) {
 
 function set_interaction(q, val) {
     console.log("set_interaction")
-    q.each((i,e)=>{
-        if(val==true && $(e).hasClass("disabled")==false){
+    q.each((i, e) => {
+        if (val == true && $(e).hasClass("disabled") == false && e.name != "x") {
             $(e).addClass("interact");
-        }else{
+        } else {
             $(e).removeClass("interact");
         }
     })

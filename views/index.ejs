@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="./css/test3.css">
+  <link rel="stylesheet" href="./css/style.css">
   <script src="/socket.io/socket.io.js"></script>
 
 </head>
@@ -21,9 +21,9 @@
     <div class="wrapper header-wrapper">
       <div class="header-title">あいうえバトル online</div>
       <div class="switch-view ongame standby">
-        <form id="logout-form">
+        <!-- <form id="logout-form">
           <input type="submit" class="bms_send_btn interact" value="Leave room">
-        </form>
+        </form> -->
       </div>
     </div>
 
@@ -290,6 +290,8 @@
           <form id="restart-form">
             <input type="submit" class="bms_send_btn interact" value="次のゲームへ">
           </form>
+          <div class="game-status">
+          </div>
         </div>
       </div>
 
@@ -393,10 +395,15 @@
             </svg>
             <span class="text">Back</span>
           </button> -->
+          
+          <button type="button" class="game-control-button interact" id="backspace-button">
+            <span class="text">＜</span>
+          </button>
+          
           <button type="button" class="game-control-button" id="attack-button">
             <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
-              xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 8.4666666 8.4666666"
+              xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 8.4666666 8.4666666"
               version="1.1" id="svg1129">
               <defs id="defs1123" />
               <g id="layer1">

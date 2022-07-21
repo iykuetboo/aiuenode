@@ -127,7 +127,15 @@ class Game {
 
         if(end){return;}
 
-        const p_i_next = (p_i) % this._players.length + 1
+        let p_i_next = (p_i) % this._players.length + 1
+
+        // console.log(`attack_action: p_i_next=${p_i_next}`)
+        //skip defeated player
+        while(this._player_defeat_state[p_i_next-1] != 0){
+            p_i_next = (p_i_next) % this._players.length + 1
+            // console.log(`      skipped: p_i_next=${p_i_next}`)
+        }
+
         this._waiting = [p_i_next]
         this._emitter.emit("turn-change", { index: p_i_next, name: this._players[p_i_next - 1].name })
     }
@@ -153,6 +161,7 @@ class Game {
             if (this._player_defeat_state[i] == 0) {
                 if (this._public_words[i].indexOf("?") == -1) {
                     this._player_defeat_state[i] = this._remain_player_number
+                    console.log(`player${i+1} defeated: defeat_state=${this._player_defeat_state[i]}`)
                 }
             }
         }
@@ -174,6 +183,16 @@ class Game {
             ranking.push({ "rank": this._player_words.length - rank, "player": this._players[index], "p_i": index + 1 })
             console.log(`rank=${this._player_words.length - rank}, player${this._players[index]}, p_i=${index +  1}`)
         })
+
+        ranking.sort((a, b) => {
+            if (a["rank"] < b["rank"]) {
+                return -1;
+            }
+            if (a["rank"] > b["rank"]) {
+                return 1;
+            }
+            return 0;
+        });
 
         this._emitter.emit("game-finish", ranking)
         this._waiting = Array.from(Array(this._players.length), (v, k) => k + 1);

@@ -26,4 +26,8 @@ $('#restart-form').submit(function (e) {
     e.preventDefault();
     socket.emit('game', {action:"restart"});
     $('#restart-form > .bms_send_btn').addClass('disabled');
+    set_gamestatus_message(`
+    <span>
+    他の人を待っています…
+    </span>`)
 });
