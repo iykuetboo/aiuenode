@@ -68,19 +68,18 @@ class Game {
         Game.kana.forEach(v => {
             this._board[v] = 0;
         });
-
-        this.start_set_words()
+        this._remain_player_number = this._players.length
 
         this.emit_info()
+        this.start_set_words()
     }
 
     start_set_words() {
         this._state = "set-words"
-        this._emitter.emit("set-word-start")
         this._player_words = Array.from(Array(this._players.length), (v, k) => "xxxxxxxx")
         this._public_words = Array.from(Array(this._players.length), (v, k) => "????????")
         this._waiting = Array.from(Array(this._players.length), (v, k) => k + 1);
-        this._state = "set-words";
+        this._emitter.emit("set-word-start")
     }
 
     set_word_action(p, word) {
@@ -112,6 +111,7 @@ class Game {
         this._state = "main-loop"
         this._emitter.emit("start-main-loop", {})
         this._waiting = [1]
+        this.emit_info()
         this._emitter.emit("turn-change", { index: 1, name: this._players[0].name })
     }
 

@@ -87,6 +87,8 @@ socket.on('game-finish',(data)=>{
     <span class="player${p_i}">
         あなたは${myrank}位でした
     </span>`)
+
+    $('#restart-form > .bms_send_btn').removeClass('disabled');
 })
 
 function ordinal_suffix_of(i) {
