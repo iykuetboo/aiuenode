@@ -36,9 +36,9 @@ class Game {
             return
         }
 
-        const msg = `player${p_i} (${p.id}) sent action ${data.action}`
-        console.log(msg)
-        this._emitter.emit("system-msg", msg)
+        // const msg = `player${p_i} (${p.id}) sent action ${data.action}`
+        // console.log(msg)
+        // this._emitter.emit("system-msg", msg)
 
         switch (data.action) {
             case "set-thema":

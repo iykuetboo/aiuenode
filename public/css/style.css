@@ -236,6 +236,9 @@ body {
     font-size: 2em;
 }
 
+.board-tonit{
+    position: absolute;
+}
 
 .player-header {
     position: absolute;

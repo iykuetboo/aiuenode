@@ -136,7 +136,20 @@ function set_board(board) {
                 $(e).addClass("no-border");
                 break;
             default:
-                e.innerHTML = `<span class="aiue-char player${board[c]}">${c}</span>`;
+                e.innerHTML = `
+                <span class="board-tonit player${board[c]}">
+                  <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+                    xmlns="http://www.w3.org/2000/svg" width="80%" height="80%" viewBox="0 0 8.4666666 8.4666666"
+                    version="1.1" id="svg1129">
+                    <defs id="defs1123" />
+                    <g id="layer1">
+                      <path
+                        d="M 3.7893098,5.1898132 3.1016648,8.092492 6.2181483,4.2562059 4.4203078,3.371494 5.1079527,0.4688151 1.9914692,4.3051012 Z"
+                        class="st0 player-header-svg" />
+                    </g>
+                  </svg>
+                </span>`;
                 $(e).addClass("disabled");
         }
     })
